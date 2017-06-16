@@ -9,9 +9,12 @@ It should contain the following characteristics:
 * the first three digits may be surrounded by round brackets and be followed by a space
 * no other characters are permitted
 
+When the input is valid, the function will return `undefined`
+When the input is invalid, the function will return a string containing an error message to display
+
 ## 1. Basic TDD of a React Component
 * using snapshots
-* 
+*
 
 ## 1. Add new behavior via TDD
 
