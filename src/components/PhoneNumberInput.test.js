@@ -30,10 +30,32 @@ describe('PhoneNumberInput', () => {
         it('calls the validator function on blur', () => {
             const validator = jest.fn()
             const wrapper = shallow(<PhoneNumberInput onBlur={validator} />)
-
             wrapper.find('input').simulate('blur');
 
             expect(validator.mock.calls.length).toBe(1)
+        })
+
+        describe('when validator returns a string', () => {
+            it('displays the error', () => {
+                const validator = jest.fn()
+                const wrapper = shallow(<PhoneNumberInput onBlur={validator} />)
+
+                validator.mockReturnValue('error message');
+                wrapper.find('input').simulate('blur');
+
+                expect(wrapper.find('.error').text()).toEqual('error message')
+            })
+        })
+
+        describe('when validator returns undefined', () => {
+            it('does not show any error', () => {
+                const validator = jest.fn()
+                const wrapper = shallow(<PhoneNumberInput onBlur={validator} />)
+
+                validator.mockReturnValue(undefined);
+
+                expect(wrapper.find('.error')).toHaveLength(0)
+            })
         })
     })
 })
