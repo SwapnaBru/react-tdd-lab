@@ -4,19 +4,19 @@ export default class PhoneNumberInput extends React.Component {
     constructor() {
         super()
 
-        this.onChange = this.onChange.bind(this)
+        this.onBlur = this.onBlur.bind(this)
     }
 
-    onChange() {
-        if (this.props.onChange) {
-            this.props.onChange.apply(this, arguments)
+    onBlur() {
+        if (this.props.onBlur) {
+            this.props.onBlur.apply(this, arguments)
         }
     }
 
     render() {
         return (
             <div>
-                <input type="text" value={this.props.value} onChange={this.onChange} />
+                <input type="text" value={this.props.value} onBlur={this.onBlur} />
             </div>
         )
     }

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PhoneNumberInput renders correctly 1`] = `
+exports[`PhoneNumberInput no props renders correctly 1`] = `
 <div>
   <input
-    onChange={[Function]}
+    onBlur={[Function]}
     type="text"
     value={undefined}
   />
