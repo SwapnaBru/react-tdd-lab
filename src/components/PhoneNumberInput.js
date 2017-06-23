@@ -28,8 +28,8 @@ export default class PhoneNumberInput extends React.Component {
         this.setState({ value: value })
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({value: nextProps.value})
+    componentWillReceiveProps({value}) {
+        this.setState({value: value})
     }
 
     render() {
