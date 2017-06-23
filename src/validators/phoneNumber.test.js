@@ -1,6 +1,14 @@
 import phoneNumberValidator from './phoneNumber'
 
 describe('PhoneNumberValidator', () => {
+    describe('on undefined input', () => {
+        it('should return undefined', () => {
+            const result = phoneNumberValidator()
+
+            expect(result).toBeUndefined()
+        })
+    })
+
     describe('on empty input', () => {
         it('should return undefined', () => {
             const result = phoneNumberValidator('')
