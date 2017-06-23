@@ -4,21 +4,25 @@ export default class PhoneNumberInput extends React.Component {
     constructor() {
         super()
 
-        this.onBlur = this.onBlur.bind(this)
+        this.validate = this.validate.bind(this)
         this.state = { validation: undefined }
     }
 
-    onBlur() {
-        if (this.props.onBlur) {
-            const validation = this.props.onBlur.apply(this, arguments)
+    validate(e) {
+        if (this.props.validate) {
+            const validation = this.props.validate.apply(this, arguments)
             this.setState({validation: validation})
         }
+    }
+
+    change(e) {
+
     }
 
     render() {
         return (
             <div>
-                <input type="text" value={this.props.value} onBlur={this.onBlur} />
+                <input type="text" defaultValue={this.props.value} onBlur={this.validate} />
                 { this.state.validation && <div className={"error"}>{this.state.validation}</div>}
             </div>
         )
