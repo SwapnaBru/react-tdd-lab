@@ -21,7 +21,7 @@ class App extends Component {
     validate(value) {
         console.log(`VALUE: ${value}`)
         let result = phoneNumberValidator(value)
-        this.setState({valid: result})
+        this.setState({valid: typeof result === 'undefined'})
 
         return result
     }
@@ -42,7 +42,7 @@ class App extends Component {
         </p>
         <PhoneNumberInput value={this.state.phoneNumber} onChange={this.change} validate={this.validate} />
 
-        <pre>{JSON.stringify(typeof this.state.valid === 'undefined')}</pre>
+        <pre id="valid">{JSON.stringify(this.state.valid)}</pre>
       </div>
     );
   }
