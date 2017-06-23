@@ -21,7 +21,13 @@ describe('PhoneNumberInput', () => {
         it('doesn\'t crash when blurred', () => {
             const wrapper = shallow(<PhoneNumberInput />)
 
-            wrapper.find('input').simulate('blur');
+            wrapper.find('.ft-input').simulate('blur');
+        })
+
+        it('doesn\'t crash when changing', () => {
+            const wrapper = shallow(<PhoneNumberInput />)
+
+            wrapper.find('.ft-input').simulate('change', {target: {value: 'My new value'}});
         })
     })
 
@@ -32,23 +38,50 @@ describe('PhoneNumberInput', () => {
         })
     })
 
+    describe('has onChange', () => {
+        describe('on change', () => {
+            it('calls onChange with the new value', () => {
+                const change = jest.fn()
+                const wrapper = shallow(<PhoneNumberInput onChange={change} />)
+
+                wrapper.find('.ft-input').simulate('change', {target: {value: 'My new value'}});
+
+                expect(change).toBeCalledWith({ target: {value: 'My new value'}})
+            })
+        })
+    })
+
     describe('has validator', () => {
         it('calls the validator function on blur', () => {
             const validator = jest.fn()
             const wrapper = shallow(<PhoneNumberInput validate={validator} />)
-            wrapper.find('input').simulate('blur');
+            wrapper.find('.ft-input').simulate('blur');
 
             expect(validator).toBeCalled()
         })
 
-        it('calls the validator with value', () => {
-            const validator = jest.fn()
-            const wrapper = shallow(<PhoneNumberInput validate={validator} />)
+        describe('when value prop changes', () => {
+            it('calls the validator with value', () => {
+                const validator = jest.fn()
+                const wrapper = shallow(<PhoneNumberInput validate={validator} />)
 
-            wrapper.setProps({ value: 'something' })
-            wrapper.find('input').simulate('blur')
+                wrapper.setProps({ value: 'something' })
+                wrapper.find('.ft-input').simulate('blur')
 
-            expect(validator).toBeCalledWith('something')
+                expect(validator).toBeCalledWith('something')
+            })
+        })
+
+        describe('when input changes', () => {
+            it('calls the validator with new value', () => {
+                const validator = jest.fn()
+                const wrapper = shallow(<PhoneNumberInput validate={validator} />)
+
+                wrapper.find('.ft-input').simulate('change', {target: {value: 'My new value'}});
+                wrapper.find('.ft-input').simulate('blur')
+
+                expect(validator).toBeCalledWith('My new value')
+            })
         })
 
         describe('when validator returns a string', () => {
@@ -57,7 +90,7 @@ describe('PhoneNumberInput', () => {
                 const wrapper = shallow(<PhoneNumberInput validate={validator} />)
 
                 validator.mockReturnValue('error message');
-                wrapper.find('input').simulate('blur');
+                wrapper.find('.ft-input').simulate('blur');
 
                 expect(wrapper.find('.error').text()).toEqual('error message')
             })

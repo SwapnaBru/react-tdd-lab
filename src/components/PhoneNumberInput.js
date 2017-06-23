@@ -1,28 +1,41 @@
 import React from 'react';
 
 export default class PhoneNumberInput extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.validate = this.validate.bind(this)
-        this.state = { validation: undefined }
+        this.change = this.change.bind(this)
+
+        this.state = {
+            validation: undefined,
+            value: props.value
+        }
     }
 
-    validate(e) {
+    validate() {
         if (this.props.validate) {
-            const validation = this.props.validate.apply(this, arguments)
+            const validation = this.props.validate.call(this, this.state.value)
             this.setState({validation: validation})
         }
     }
 
-    change(e) {
+    change({target: {value}}) {
+        if (this.props.onChange) {
+            this.props.onChange.apply(this, arguments)
+        }
 
+        this.setState({ value: value })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({value: nextProps.value})
     }
 
     render() {
         return (
             <div>
-                <input type="text" defaultValue={this.props.value} onBlur={this.validate} />
+                <input type="text" className="ft-input" value={this.props.value} onBlur={this.validate} onChange={this.change} />
                 { this.state.validation && <div className={"error"}>{this.state.validation}</div>}
             </div>
         )

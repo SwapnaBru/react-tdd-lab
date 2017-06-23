@@ -3,7 +3,9 @@
 exports[`PhoneNumberInput has no props renders like it did last summer 1`] = `
 <div>
   <input
-    onblur={[Function]}
+    className="ft-input"
+    onBlur={[Function]}
+    onChange={[Function]}
     type="text"
     value={undefined}
   />
